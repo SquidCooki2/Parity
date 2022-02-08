@@ -1,7 +1,5 @@
 # Parity
 
-## Setup
-
 Adding well needed Bedrock features to Java Edition.
 
 ## License
