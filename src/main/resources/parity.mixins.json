@@ -3,16 +3,21 @@
   "minVersion": "0.8",
   "package": "com.squidcookie.parity.mixin",
   "compatibilityLevel": "JAVA_16",
-  "mixins": [
+  "client": [
     "BiomeColorsMixin",
+    "CloudParticleMixin"
+  ],
+  "mixins": [
     "BoneMealItemMixin",
     "CauldronBehaviorMixin",
     "FlowerBlockMixin",
     "FrostWalkerEnchantmentMixin",
     "LeveledCauldronBlockMixin",
-    "PropertiesMixin",
     "SnowBlockMixin",
     "SugarCaneBlockMixin",
+    "WorldRendererMixin",
+    "invoke.LeveledCauldronBlockInvoker",
+    "invoke.WorldRendererInvoker",
     "waterloggable.AnvilBlockMixin",
     "waterloggable.BannerBlockMixin",
     "waterloggable.BarrierBlockMixin",

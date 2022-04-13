@@ -37,7 +37,7 @@ implements SnowLandingBlock {
         world.createAndScheduleBlockTick(pos, this, this.getFallDelay());
     }
 
-    @Inject(at = @At("HEAD"), method = "Lnet/minecraft/block/SnowBlock;getStateForNeighborUpdate(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/Direction;Lnet/minecraft/block/BlockState;Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/BlockState;", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "getStateForNeighborUpdate", cancellable = true)
     public void getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> infoReturnable) {
         world.createAndScheduleBlockTick(pos, this, this.getFallDelay());
         infoReturnable.setReturnValue(super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos));
@@ -46,13 +46,8 @@ implements SnowLandingBlock {
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (SnowBlockMixin.canFallThrough(world.getBlockState(pos.down())) && pos.getY() >= world.getBottomY()) {
-            SnowFallingBlockEntity snowFallingBlockEntity = new SnowFallingBlockEntity(world, (double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5, world.getBlockState(pos));
-            this.configureFallingBlockEntity(snowFallingBlockEntity);
-            world.spawnEntity(snowFallingBlockEntity);
+            SnowFallingBlockEntity.spawnFromBlock(world, pos, state);
         }
-    }
-
-    protected void configureFallingBlockEntity(SnowFallingBlockEntity snowFallingBlockEntity) {
     }
 
     protected int getFallDelay() {
@@ -66,10 +61,11 @@ implements SnowLandingBlock {
 
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        if ((random.nextInt(16) == 0 && SnowBlockMixin.canFallThrough(world.getBlockState(pos.down()))) || (random.nextInt(16) == 0 && world.getBlockState(pos.down()).isIn(BlockTags.LEAVES))) {
-            double x = (double)pos.getX() + random.nextDouble();
-            double y = (double)pos.getY() - 0.05;
-            double z = (double)pos.getZ() + random.nextDouble();
+        BlockState blockState = world.getBlockState(pos.down());
+        if (random.nextInt(16) == 0 && (SnowBlockMixin.canFallThrough(blockState) || blockState.isIn(BlockTags.LEAVES))) {
+            double x = pos.getX() + random.nextDouble();
+            double y = pos.getY() - 0.05;
+            double z = pos.getZ() + random.nextDouble();
             world.addParticle(new BlockStateParticleEffect(ParticleTypes.FALLING_DUST, state), x, y, z, 0.0, 0.0, 0.0);
         }
     }

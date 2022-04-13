@@ -32,32 +32,34 @@ implements Fertilizable {
     @Override
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
         ChunkGenerator chunkGenerator = world.getChunkManager().getChunkGenerator();
-        if (state.isOf(Blocks.DANDELION)) {
-            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_DANDELION.generate(world, chunkGenerator, random, pos);
-        } else if (state.isOf(Blocks.POPPY)) {
-            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_POPPY.generate(world, chunkGenerator, random, pos);
-        } else if (state.isOf(Blocks.BLUE_ORCHID)) {
-            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_BLUE_ORCHID.generate(world, chunkGenerator, random, pos);
-        } else if (state.isOf(Blocks.ALLIUM)) {
-            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_ALLIUM.generate(world, chunkGenerator, random, pos);
-        } else if (state.isOf(Blocks.AZURE_BLUET)) {
-            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_AZURE_BLUET.generate(world, chunkGenerator, random, pos);
-        } else if (state.isOf(Blocks.RED_TULIP)) {
-            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_RED_TULIP.generate(world, chunkGenerator, random, pos);
-        } else if (state.isOf(Blocks.ORANGE_TULIP)) {
-            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_ORANGE_TULIP.generate(world, chunkGenerator, random, pos);
-        } else if (state.isOf(Blocks.WHITE_TULIP)) {
-            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_WHITE_TULIP.generate(world, chunkGenerator, random, pos);
-        } else if (state.isOf(Blocks.PINK_TULIP)) {
-            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_PINK_TULIP.generate(world, chunkGenerator, random, pos);
-        } else if (state.isOf(Blocks.OXEYE_DAISY)) {
-            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_OXEYE_DAISY.generate(world, chunkGenerator, random, pos);
-        } else if (state.isOf(Blocks.CORNFLOWER)) {
-            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_CORNFLOWER.generate(world, chunkGenerator, random, pos);
-        } else if (state.isOf(Blocks.WITHER_ROSE)) {
-            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_WITHER_ROSE.generate(world, chunkGenerator, random, pos);
-        } else if (state.isOf(Blocks.LILY_OF_THE_VALLEY)) {
-            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_LILY_OF_THE_VALLEY.generate(world, chunkGenerator, random, pos);
+        Block block = state.getBlock();
+
+        if (block == Blocks.DANDELION) {
+            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_DANDELION.value().generate(world, chunkGenerator, random, pos);
+        } else if (block == Blocks.POPPY) {
+            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_POPPY.value().generate(world, chunkGenerator, random, pos);
+        } else if (block == Blocks.BLUE_ORCHID) {
+            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_BLUE_ORCHID.value().generate(world, chunkGenerator, random, pos);
+        } else if (block == Blocks.ALLIUM) {
+            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_ALLIUM.value().generate(world, chunkGenerator, random, pos);
+        } else if (block == Blocks.AZURE_BLUET) {
+            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_AZURE_BLUET.value().generate(world, chunkGenerator, random, pos);
+        } else if (block == Blocks.RED_TULIP) {
+            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_RED_TULIP.value().generate(world, chunkGenerator, random, pos);
+        } else if (block == Blocks.ORANGE_TULIP) {
+            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_ORANGE_TULIP.value().generate(world, chunkGenerator, random, pos);
+        } else if (block == Blocks.WHITE_TULIP) {
+            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_WHITE_TULIP.value().generate(world, chunkGenerator, random, pos);
+        } else if (block == Blocks.PINK_TULIP) {
+            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_PINK_TULIP.value().generate(world, chunkGenerator, random, pos);
+        } else if (block == Blocks.OXEYE_DAISY) {
+            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_OXEYE_DAISY.value().generate(world, chunkGenerator, random, pos);
+        } else if (block == Blocks.CORNFLOWER) {
+            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_CORNFLOWER.value().generate(world, chunkGenerator, random, pos);
+        } else if (block == Blocks.WITHER_ROSE) {
+            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_WITHER_ROSE.value().generate(world, chunkGenerator, random, pos);
+        } else if (block == Blocks.LILY_OF_THE_VALLEY) {
+            ModVegetationConfiguredFeatures.FLOWER_BONEMEAL_LILY_OF_THE_VALLEY.value().generate(world, chunkGenerator, random, pos);
         }
         // TODO add modded flower support
     }

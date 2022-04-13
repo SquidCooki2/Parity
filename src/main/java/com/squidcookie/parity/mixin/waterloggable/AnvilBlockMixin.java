@@ -27,12 +27,12 @@ implements Waterloggable {
         super(settings);
     }
 
-    @Inject(at = @At("TAIL"), method = "Lnet/minecraft/block/AnvilBlock;<init>(Lnet/minecraft/block/AbstractBlock$Settings;)V")
+    @Inject(at = @At("TAIL"), method = "<init>")
     public void init(Settings settings, CallbackInfo info) {
         setDefaultState(this.stateManager.getDefaultState().with(AnvilBlock.FACING, Direction.NORTH).with(WATERLOGGED, false));
     }
 
-    @Inject(at = @At("HEAD"), method = "Lnet/minecraft/block/AnvilBlock;getPlacementState(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/block/BlockState;", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "getPlacementState", cancellable = true)
     public void getPlacementState(ItemPlacementContext placementContext, CallbackInfoReturnable<BlockState> infoReturnable) {
         FluidState fluidState = placementContext.getWorld().getFluidState(placementContext.getBlockPos());
         infoReturnable.setReturnValue(this.getDefaultState().with(AnvilBlock.FACING, placementContext.getPlayerFacing().rotateYClockwise()).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER));
@@ -46,7 +46,7 @@ implements Waterloggable {
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
-    @Inject(at = @At("TAIL"), method = "Lnet/minecraft/block/AnvilBlock;appendProperties(Lnet/minecraft/state/StateManager$Builder;)V")
+    @Inject(at = @At("TAIL"), method = "appendProperties")
     public void appendProperties(StateManager.Builder<Block, BlockState> builder, CallbackInfo info) {
         builder.add(WATERLOGGED);
     }

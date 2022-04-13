@@ -29,25 +29,25 @@ implements Waterloggable {
         super(color, settings);
     }
 
-    @Inject(at = @At("TAIL"), method = "Lnet/minecraft/block/BannerBlock;<init>(Lnet/minecraft/util/DyeColor;Lnet/minecraft/block/AbstractBlock$Settings;)V")
+    @Inject(at = @At("TAIL"), method = "<init>")
     public void init(DyeColor dyeColor, Settings settings, CallbackInfo info) {
         setDefaultState(this.stateManager.getDefaultState().with(BannerBlock.ROTATION, 0).with(WATERLOGGED, false));
     }
 
-    @Inject(at = @At("HEAD"), method = "Lnet/minecraft/block/BannerBlock;getPlacementState(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/block/BlockState;", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "getPlacementState", cancellable = true)
     public void getPlacementState(ItemPlacementContext placementContext, CallbackInfoReturnable<BlockState> infoReturnable) {
         FluidState fluidState = placementContext.getWorld().getFluidState(placementContext.getBlockPos());
         infoReturnable.setReturnValue(this.getDefaultState().with(BannerBlock.ROTATION, MathHelper.floor((double)((180.0F + placementContext.getPlayerYaw()) * 16.0F / 360.0F) + 0.5D) & 15).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER));
     }
 
-    @Inject(at = @At("HEAD"), method = "Lnet/minecraft/block/BannerBlock;getStateForNeighborUpdate(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/Direction;Lnet/minecraft/block/BlockState;Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/BlockState;")
+    @Inject(at = @At("HEAD"), method = "getStateForNeighborUpdate")
     public void getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos, CallbackInfoReturnable<BlockState> cir) {
         if (state.get(WATERLOGGED)) {
             world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
     }
 
-    @Inject(at = @At("TAIL"), method = "Lnet/minecraft/block/BannerBlock;appendProperties(Lnet/minecraft/state/StateManager$Builder;)V")
+    @Inject(at = @At("TAIL"), method = "appendProperties")
     public void appendProperties(StateManager.Builder<Block, BlockState> builder, CallbackInfo info) {
         builder.add(WATERLOGGED);
     }

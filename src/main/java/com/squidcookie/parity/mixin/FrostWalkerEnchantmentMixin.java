@@ -16,7 +16,7 @@ extends Enchantment {
         super(weight, type, slotTypes);
     }
 
-    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;isOnGround()Z"), method = "Lnet/minecraft/enchantment/FrostWalkerEnchantment;freezeWater(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;I)V")
+    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;isOnGround()Z"), method = "freezeWater")
     private static boolean isOnGroundRedirect(LivingEntity entity) {
         return true;
     }

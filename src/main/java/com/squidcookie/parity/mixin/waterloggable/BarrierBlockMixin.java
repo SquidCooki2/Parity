@@ -26,7 +26,7 @@ implements Waterloggable {
         super(settings);
     }
 
-    @Inject(at = @At("TAIL"), method = "Lnet/minecraft/block/BarrierBlock;<init>(Lnet/minecraft/block/AbstractBlock$Settings;)V")
+    @Inject(at = @At("TAIL"), method = "<init>")
     public void init(Settings settings, CallbackInfo info) {
         setDefaultState(this.stateManager.getDefaultState().with(WATERLOGGED, false));
     }

@@ -17,12 +17,12 @@ extends Item {
         super(settings);
     }
 
-    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isOpaqueFullCube(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Z"), method = "Lnet/minecraft/item/BoneMealItem;createParticles(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;I)V")
+    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isOpaqueFullCube(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Z"), method = "createParticles")
     private static boolean isOpaqueFullCubeRedirect(BlockState state, BlockView world, BlockPos pos) {
         return state.isOpaqueFullCube(world, pos) || state.isIn(BlockTags.SMALL_FLOWERS);
     }
 
-    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/BlockPos;up()Lnet/minecraft/util/math/BlockPos;"), method = "Lnet/minecraft/item/BoneMealItem;createParticles(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;I)V")
+    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/BlockPos;up()Lnet/minecraft/util/math/BlockPos;"), method = "createParticles")
     private static BlockPos upRedirect(BlockPos pos, WorldAccess world) {
         if (!world.getBlockState(pos).isIn(BlockTags.SMALL_FLOWERS)) {
             return pos.up();
